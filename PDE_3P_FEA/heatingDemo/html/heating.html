@@ -1,0 +1,500 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>heating</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-01-08"><meta name="DC.source" content="heating.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">FV3TYEPWNNQC-1082-607</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">cdfc1906-ce03-4c6a-868f-e991a57e2316</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">http://sharepoint.mathworks.com/marketing/product/ltc/mso/pde/_layouts/15/DocIdRedir.aspx?ID=FV3TYEPWNNQC-1082-607, FV3TYEPWNNQC-1082-607</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Best Placement of Holes in Cylinder to Achieve Target Average Temperature - A Parametric Study</a></li><li><a href="#2">Import candidate geometries and create models</a></li><li><a href="#12">Input setup</a></li><li><a href="#17">Output setup</a></li><li><a href="#26">Function for applying boundary conditions, meshing, and solving per geometry</a></li><li><a href="#27">Solve for all geometries</a></li><li><a href="#31">Report and visualize results</a></li><li><a href="#37">Takeaways</a></li></ul></div><h2>Best Placement of Holes in Cylinder to Achieve Target Average Temperature - A Parametric Study<a name="1"></a></h2><p>This examples conducts a parametric study in which heat conduction simulation is performed over a set of similar geometries to determine which geometry "best" meets an average temperature on an specified output area. The geometry is a cylinder like structure as shown below and has a ring of holes running longitudinally through the structure. The problem has the following characteristics:</p><p><img vspace="5" hspace="5" src="publish_pic.png" alt=""> </p><p><b>Boundary conditions</b></p><div><ul><li>The input heat source is applied on the faces of the holes.</li><li>The longitudinal surface and the surface on the center protrusion have convective boundary conditions. The output surface is the rectangular subsurface of the longitudinal surface. The objective of the example is to achieve a target average temperature on output surface in the "best" manner possible as described later.</li><li>All other faces not indicated above are insulated and thus have zero Neumann boundary conditions.</li></ul></div><p><b>Geometry</b></p><div><ul><li>Each geometry has a unique pair of (#holes, radius of ring of holes). All other geometry parameters are held constant.</li><li>Although it is possible to exploit symmetry in some of the geometries in order to reduce the problem to 2 geometry dimensions, it was not done so in this example.</li></ul></div><p><b>Results</b></p><div><ul><li>Results are collected from all simulations and the best geometry in terms of lowest max-min temperature spread on the longitudinal face and the best geometry for lowest operating cost (input flux) are identified.</li><li>The implementation uses 'parfeval' from the Parallel Computing Toolbox to speed up the parametric study.</li></ul></div><pre class="codeinput"><span class="keyword">function</span> heating
+</pre><h2>Import candidate geometries and create models<a name="2"></a></h2><p>The STL files are read - each file corresponds to a different parameter-pair: (#holes, radius of ring of holes).</p><pre class="codeinput">fileList = ls(<span class="string">'cyl_*.STL'</span>);
+fileList = mat2cell(fileList,ones(size(fileList,1),1));
+</pre><p>The PDE is a scalar, laplace equation</p><pre class="codeinput">N = 1;
+</pre><p>A table will be created to organize data and results from all runs</p><p>Table column corresponding to the PDE models</p><pre class="codeinput">Model = cellfun(@(~) createpde(N),fileList,<span class="string">'UniformOutput'</span>,false);
+</pre><p>Table columns corresponding to #holes and radius (note: this is the radius of the ring and <b>not</b> the radius of the hole) are extracted.</p><pre class="codeinput">paramList = cellfun(@(fileName) regexpi(fileName,<span class="string">'cyl_(.*)_(.*).STL'</span>,<span class="string">'tokens'</span>),fileList, <span class="string">'UniformOutput'</span>,false);
+NumHoles = cellfun(@(entry) str2double(entry{1}(1)),paramList,<span class="string">'UniformOutput'</span>,false);
+HolesRadius = cellfun(@(entry) str2double(entry{1}(2)),paramList,<span class="string">'UniformOutput'</span>,false);
+</pre><p>Create table</p><pre class="codeinput">T = [table(Model), cell2table(NumHoles,<span class="string">'RowNames'</span>,fileList), cell2table(HolesRadius)];
+</pre><p>Import geometries into the PDE models</p><pre class="codeinput"><span class="keyword">for</span> k = 1:size(T,1)
+    importGeometry(T.Model{k},T.Properties.RowNames{k});
+    <span class="comment">% The relation of faces to holes is known; report errors for unexpected</span>
+    <span class="comment">% relation</span>
+    <span class="keyword">if</span> T.Model{k}.Geometry.NumFaces ~= (3 + T.NumHoles(k) + 2)
+        error(<span class="string">'unexpected number of faces'</span>);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p>Sort table, first by #holes and then by radius</p><pre class="codeinput">T = sortrows(T,{<span class="string">'NumHoles'</span>,<span class="string">'HolesRadius'</span>},{<span class="string">'ascend'</span>,<span class="string">'ascend'</span>});
+</pre><p>Plot two extreme geometries to show the range of geometry variations</p><pre class="codeinput">figure
+pdegplot(T.Model{1},<span class="string">'FaceLabels'</span>,<span class="string">'on'</span>);
+title(T.Properties.RowNames{1});
+view(0,90);
+figure
+pdegplot(T.Model{end},<span class="string">'FaceLabels'</span>,<span class="string">'on'</span>);
+title(T.Properties.RowNames{end});
+view(0,90);
+</pre><img vspace="5" hspace="5" src="heating_01.png" alt=""> <img vspace="5" hspace="5" src="heating_02.png" alt=""> <h2>Input setup<a name="12"></a></h2><p>Ambient temperature</p><pre class="codeinput">ambientTemp = 6;
+</pre><p>Target average nodal temperature on output surface</p><pre class="codeinput">targetTemp = 15;
+</pre><p>PDE coefficients for laplace equation (heat conduction)</p><pre class="codeinput">c = 1e-1;
+a = 0;
+f = 0;
+</pre><p>Any face in <tt>(inputFacesBegin:(inputFacesBegin +numHoles))</tt> is an input heat source face</p><pre class="codeinput">inputFacesBegin = 4;
+</pre><h2>Output setup<a name="17"></a></h2><p>Table column for capturing max-min temperature on output area; it is desirable to have a low spread</p><pre class="codeinput">MaxMinSpread = zeros(size(T,1),1);
+</pre><p>Table column for operating cost (total flux going into solid via the input heat source faces); it is desirable to minimize this</p><pre class="codeinput">OperatingCost = zeros(size(T,1),1);
+</pre><p><tt>AvgTempVariable</tt> column corresponds to the variable contribution towards the average temperature solution on the output surface. The constant contribution is simply <tt>ambientTemp</tt>.</p><pre class="codeinput">AvgTempVariable = zeros(size(T,1),1);
+</pre><p>Table column for scale factor for <tt>AvgTempVariable</tt> to help match <tt>targetTemp</tt></p><pre class="codeinput">InputForTargetTemp = zeros(size(T,1),1);
+</pre><p>Add these columns to table</p><pre class="codeinput">T = [T table(AvgTempVariable,InputForTargetTemp,MaxMinSpread,OperatingCost)];
+</pre><p>Face on which the max-min temperature spread is measured.</p><pre class="codeinput">MaxMinSpreadFace = 1;
+</pre><p>Output surface in XZ plane: <tt>-offsetX:offsetX, offsetY, minZ:maxZ</tt> where average temperature is calculated</p><pre class="codeinput">offsetY = -1.875;
+offsetX = sqrt(2^2-offsetY^2);
+minZ = 0;
+maxZ = 1;
+</pre><p>Convective heat transfer coefficient</p><pre class="codeinput">hc = 0.3;
+</pre><h2>Function for applying boundary conditions, meshing, and solving per geometry<a name="26"></a></h2><pre class="codeinput">    <span class="keyword">function</span> [avgTemp,maxMinSpread,resultVariableBC] = solveGeometry(model,numHoles)
+        <span class="comment">% generate mesh with 'hmax' = 1/4th of hole radius</span>
+        model.generateMesh(<span class="string">'hmax'</span>,0.25/4);
+        <span class="comment">% extract nodes on MaxMinSpreadFace</span>
+        [p,e,t] = meshToPet(model.Mesh);
+        maxMinSpreadFaceNodes = e.getNodes(MaxMinSpreadFace);
+        <span class="comment">% variable component of boundary conditions is generalized Neumann BC</span>
+        <span class="comment">% on maxMinSpreadFaceNodes and also face on center protrusion</span>
+        model.applyBoundaryCondition(<span class="string">'Face'</span>,[MaxMinSpreadFace,model.Geometry.NumFaces],<span class="keyword">...</span>
+            <span class="string">'q'</span>,hc);
+        <span class="comment">% apply unit flux on input heat source faces</span>
+        model.applyBoundaryCondition(<span class="string">'Face'</span>,(inputFacesBegin:(inputFacesBegin + numHoles)),<span class="string">'g'</span>,1);
+        <span class="comment">% solve to get result for variable BC</span>
+        resultVariableBC = assempde(model,c,a,f);
+        <span class="comment">% calculate max-min spread</span>
+        t1 = resultVariableBC(maxMinSpreadFaceNodes);
+        maxMinSpread = max(t1) - min(t1);
+        <span class="comment">% calculate average temp. on rectangular output surface area</span>
+        myInterpolant = pdeInterpolant(p,t,resultVariableBC);
+        <span class="keyword">function</span> res = intFun(x,z)
+            <span class="comment">% Y offset is pushed a bit inwards to avoid missing data along</span>
+            <span class="comment">% Y axis</span>
+            res = evaluate(myInterpolant,x,(offsetY+0.01)*ones(size(x)),z);
+            res = reshape(res,size(x));
+            <span class="comment">% NaNs dues to XZ plane overshoot are set to zero</span>
+            res(find(isnan(res)))=0;
+            <span class="keyword">return</span>
+        <span class="keyword">end</span>
+        area = 2*offsetX*(maxZ-minZ);
+        avgTemp = integral2(@intFun,-offsetX,+offsetX,minZ,maxZ)/area;
+    <span class="keyword">end</span>
+</pre><h2>Solve for all geometries<a name="27"></a></h2><p>Use parfeval to perform asynchronous computation and speed up overall simulation time</p><pre class="codeinput">pool = gcp();
+</pre><pre class="codeoutput">Starting parallel pool (parpool) using the 'local' profile ... connected to 2 workers.
+</pre><p>Futures are created for the geometries</p><pre class="codeinput"><span class="keyword">for</span> idx = 1:size(T,1)
+    <span class="comment">% coefficients of PDE</span>
+    F(idx) = parfeval(pool,@solveGeometry,3,T.Model{idx},T.NumHoles(idx));
+<span class="keyword">end</span>
+</pre><p>Populate table with results of computations that are performed asynchronously</p><pre class="codeinput"><span class="keyword">for</span> idx = 1:size(T,1)
+    <span class="comment">% get result for next geometry that was solved</span>
+    [completedIdx,avgTemp,maxMinSpread] = fetchNext(F);
+    <span class="comment">% Set the average temperature contribution of the variable part of the</span>
+    <span class="comment">% BC</span>
+    T.AvgTempVariable(completedIdx) = avgTemp;
+    fprintf(<span class="string">'%d of %d models simulated\n'</span>,completedIdx,size(T,1));
+    <span class="comment">% compute scale factor for the contribution of the variable part. As</span>
+    <span class="comment">% mentioned earlier ambientTemp corresponds to contribution of the constant part.</span>
+    T.InputForTargetTemp(completedIdx) = (targetTemp-ambientTemp)./T.AvgTempVariable(completedIdx);
+    T.MaxMinSpread(completedIdx) = maxMinSpread;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">2 of 41 models simulated
+1 of 41 models simulated
+3 of 41 models simulated
+4 of 41 models simulated
+5 of 41 models simulated
+6 of 41 models simulated
+7 of 41 models simulated
+8 of 41 models simulated
+9 of 41 models simulated
+10 of 41 models simulated
+11 of 41 models simulated
+12 of 41 models simulated
+13 of 41 models simulated
+14 of 41 models simulated
+15 of 41 models simulated
+16 of 41 models simulated
+17 of 41 models simulated
+18 of 41 models simulated
+20 of 41 models simulated
+19 of 41 models simulated
+21 of 41 models simulated
+22 of 41 models simulated
+23 of 41 models simulated
+24 of 41 models simulated
+25 of 41 models simulated
+26 of 41 models simulated
+27 of 41 models simulated
+28 of 41 models simulated
+29 of 41 models simulated
+30 of 41 models simulated
+31 of 41 models simulated
+32 of 41 models simulated
+33 of 41 models simulated
+34 of 41 models simulated
+36 of 41 models simulated
+37 of 41 models simulated
+35 of 41 models simulated
+39 of 41 models simulated
+40 of 41 models simulated
+38 of 41 models simulated
+41 of 41 models simulated
+</pre><h2>Report and visualize results<a name="31"></a></h2><p>Calculate operating cost</p><pre class="codeinput">T.OperatingCost = T.InputForTargetTemp.*T.NumHoles;
+</pre><p>Top-5 operating cost sorted from smallest to largest</p><pre class="codeinput">TOpCost = sortrows(T,<span class="string">'OperatingCost'</span>);
+TOpCost(1:5,:)
+</pre><pre class="codeoutput">
+ans = 
+
+                           Model           NumHoles    HolesRadius    AvgTempVariable    InputForTargetTemp    MaxMinSpread    OperatingCost
+                     __________________    ________    ___________    _______________    __________________    ____________    _____________
+
+    cyl_4_1.2.STL    [1x1 pde.PDEModel]    4           1.2            1.9545             4.6048                 0.7581         18.419       
+    cyl_4_1.1.STL    [1x1 pde.PDEModel]    4           1.1            1.8816             4.7831                0.60484         19.133       
+    cyl_4_1.0.STL    [1x1 pde.PDEModel]    4             1            1.8197             4.9458                0.49596         19.783       
+    cyl_3_1.2.STL    [1x1 pde.PDEModel]    3           1.2            1.3607              6.614                0.69789         19.842       
+    cyl_3_1.1.STL    [1x1 pde.PDEModel]    3           1.1             1.354             6.6468                0.56056          19.94       
+
+</pre><p>Plot result for geometry with lowest operating cost</p><pre class="codeinput">[~,~,resultVariableBC] = solveGeometry(TOpCost.Model{1},TOpCost.NumHoles(1));
+u_Optimal = resultVariableBC*TOpCost.InputForTargetTemp(1) + ambientTemp;
+figure
+pdeplot3D(TOpCost.Model{1},<span class="string">'colormapdata'</span>,u_Optimal);
+view(45,90);
+snapnow
+view(114,51);
+snapnow
+</pre><img vspace="5" hspace="5" src="heating_03.png" alt=""> <img vspace="5" hspace="5" src="heating_04.png" alt=""> <p>Top-5 max-min spread sorted from smallest to largest</p><pre class="codeinput">TMaxMinSpread = sortrows(T,<span class="string">'MaxMinSpread'</span>);
+TMaxMinSpread(1:5,:)
+</pre><pre class="codeoutput">
+ans = 
+
+                           Model           NumHoles    HolesRadius    AvgTempVariable    InputForTargetTemp    MaxMinSpread    OperatingCost
+                     __________________    ________    ___________    _______________    __________________    ____________    _____________
+
+    cyl_3_0.9.STL    [1x1 pde.PDEModel]    3           0.9             1.3254            6.7903                0.41703         20.371       
+    cyl_4_0.9.STL    [1x1 pde.PDEModel]    4           0.9             1.7654             5.098                0.44566         20.392       
+    cyl_3_1.0.STL    [1x1 pde.PDEModel]    3             1              1.342            6.7062                 0.4798         20.119       
+    cyl_2_0.9.STL    [1x1 pde.PDEModel]    2           0.9            0.71197            12.641                0.48223         25.282       
+    cyl_5_0.9.STL    [1x1 pde.PDEModel]    5           0.9             2.1201             4.245                0.48678         21.225       
+
+</pre><p>Plot result for geometry with lowest max-min spread</p><pre class="codeinput">[~,~,resultVariableBC] = solveGeometry(TMaxMinSpread.Model{1},TMaxMinSpread.NumHoles(1));
+u_Optimal = resultVariableBC*TMaxMinSpread.InputForTargetTemp(1) + ambientTemp;
+figure
+pdeplot3D(TMaxMinSpread.Model{1},<span class="string">'colormapdata'</span>,u_Optimal);
+view(45,90);
+snapnow
+view(114,51);
+snapnow
+</pre><img vspace="5" hspace="5" src="heating_05.png" alt=""> <img vspace="5" hspace="5" src="heating_06.png" alt=""> <h2>Takeaways<a name="37"></a></h2><div><ul><li>Programmatically solve PDEs and perform parametric studies. Useful if there is little fundamental variation between different design points.</li><li>Perform custom post-processing with useful reports</li><li>Use Parallel Computing Toolbox to accelerate simulations</li></ul></div><pre class="codeinput"><span class="keyword">end</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Best Placement of Holes in Cylinder to Achieve Target Average Temperature - A Parametric Study
+% This examples conducts a parametric study in which heat conduction
+% simulation is performed over a set of similar geometries to determine
+% which geometry "best" meets an average temperature on an specified output
+% area. The geometry is a cylinder like structure as shown below and has a
+% ring of holes running longitudinally through the structure. The problem
+% has the following characteristics:
+%
+% 
+% <<publish_pic.png>>
+% 
+% *Boundary conditions*
+% 
+% * The input heat source is applied on the faces of the holes.
+% * The longitudinal surface and the surface on the center protrusion have
+% convective boundary conditions. The output surface is the rectangular
+% subsurface of the longitudinal surface. The objective of the example is
+% to achieve a target average temperature on output surface in the "best"
+% manner possible as described later.
+% * All other faces not indicated above are insulated and thus have zero
+% Neumann boundary conditions.
+% 
+% *Geometry*
+% 
+% * Each geometry has a unique pair of (#holes, radius of ring of holes).
+% All other geometry parameters are held constant.
+% * Although it is possible to exploit symmetry in some of the geometries
+% in order to reduce the problem to 2 geometry dimensions, it was not done
+% so in this example.
+% 
+% *Results*
+% 
+% * Results are collected from all simulations and the best geometry in
+% terms of lowest max-min temperature spread on the longitudinal face and
+% the best geometry for lowest operating cost (input flux) are identified.
+% * The implementation uses 'parfeval' from the Parallel Computing Toolbox
+% to speed up the parametric study.
+% 
+function heating
+
+%% Import candidate geometries and create models
+%%
+% The STL files are read - each file corresponds to a different
+% parameter-pair: (#holes, radius of ring of holes).
+fileList = ls('cyl_*.STL');
+fileList = mat2cell(fileList,ones(size(fileList,1),1));
+%%
+% The PDE is a scalar, laplace equation
+N = 1;
+%%
+% A table will be created to organize data and results from all runs
+%%
+% Table column corresponding to the PDE models
+Model = cellfun(@(~) createpde(N),fileList,'UniformOutput',false);
+%%
+% Table columns corresponding to #holes and radius (note: this is the
+% radius of the ring and *not* the radius of the hole) are extracted.
+paramList = cellfun(@(fileName) regexpi(fileName,'cyl_(.*)_(.*).STL','tokens'),fileList, 'UniformOutput',false);
+NumHoles = cellfun(@(entry) str2double(entry{1}(1)),paramList,'UniformOutput',false);
+HolesRadius = cellfun(@(entry) str2double(entry{1}(2)),paramList,'UniformOutput',false);
+%%
+% Create table
+T = [table(Model), cell2table(NumHoles,'RowNames',fileList), cell2table(HolesRadius)];
+%%
+% Import geometries into the PDE models
+for k = 1:size(T,1)
+    importGeometry(T.Model{k},T.Properties.RowNames{k});
+    % The relation of faces to holes is known; report errors for unexpected
+    % relation
+    if T.Model{k}.Geometry.NumFaces ~= (3 + T.NumHoles(k) + 2)
+        error('unexpected number of faces');
+    end
+end
+%%
+% Sort table, first by #holes and then by radius
+T = sortrows(T,{'NumHoles','HolesRadius'},{'ascend','ascend'});
+%%
+% Plot two extreme geometries to show the range of geometry variations
+figure
+pdegplot(T.Model{1},'FaceLabels','on');
+title(T.Properties.RowNames{1});
+view(0,90);
+figure
+pdegplot(T.Model{end},'FaceLabels','on');
+title(T.Properties.RowNames{end});
+view(0,90);
+
+%% Input setup
+%%
+% Ambient temperature
+ambientTemp = 6;
+%%
+% Target average nodal temperature on output surface
+targetTemp = 15;
+%%
+% PDE coefficients for laplace equation (heat conduction)
+c = 1e-1;
+a = 0;
+f = 0;
+%%
+% Any face in |(inputFacesBegin:(inputFacesBegin +numHoles))| is an input
+% heat source face
+inputFacesBegin = 4;
+
+%% Output setup
+%%
+% Table column for capturing max-min temperature on output
+% area; it is desirable to have a low spread
+MaxMinSpread = zeros(size(T,1),1);
+%%
+% Table column for operating cost (total flux going into solid via the
+% input heat source faces); it is desirable to minimize this
+OperatingCost = zeros(size(T,1),1);
+%%
+% |AvgTempVariable| column corresponds to the variable contribution towards
+% the average temperature solution on the output surface. The constant
+% contribution is simply |ambientTemp|.
+AvgTempVariable = zeros(size(T,1),1);
+%%
+% Table column for scale factor for |AvgTempVariable| to help match |targetTemp|
+InputForTargetTemp = zeros(size(T,1),1);
+%%
+% Add these columns to table
+T = [T table(AvgTempVariable,InputForTargetTemp,MaxMinSpread,OperatingCost)];
+%%
+% Face on which the max-min temperature spread is measured. 
+MaxMinSpreadFace = 1;
+%%
+% Output surface in XZ plane: |-offsetX:offsetX, offsetY, minZ:maxZ| where average
+% temperature is calculated
+offsetY = -1.875;
+offsetX = sqrt(2^2-offsetY^2);
+minZ = 0;
+maxZ = 1;
+%%
+% Convective heat transfer coefficient
+hc = 0.3;
+
+%% Function for applying boundary conditions, meshing, and solving per geometry
+    function [avgTemp,maxMinSpread,resultVariableBC] = solveGeometry(model,numHoles)
+        % generate mesh with 'hmax' = 1/4th of hole radius
+        model.generateMesh('hmax',0.25/4);
+        % extract nodes on MaxMinSpreadFace
+        [p,e,t] = meshToPet(model.Mesh);
+        maxMinSpreadFaceNodes = e.getNodes(MaxMinSpreadFace);
+        % variable component of boundary conditions is generalized Neumann BC
+        % on maxMinSpreadFaceNodes and also face on center protrusion
+        model.applyBoundaryCondition('Face',[MaxMinSpreadFace,model.Geometry.NumFaces],...
+            'q',hc);
+        % apply unit flux on input heat source faces
+        model.applyBoundaryCondition('Face',(inputFacesBegin:(inputFacesBegin + numHoles)),'g',1);
+        % solve to get result for variable BC
+        resultVariableBC = assempde(model,c,a,f);
+        % calculate max-min spread
+        t1 = resultVariableBC(maxMinSpreadFaceNodes);
+        maxMinSpread = max(t1) - min(t1);
+        % calculate average temp. on rectangular output surface area
+        myInterpolant = pdeInterpolant(p,t,resultVariableBC);
+        function res = intFun(x,z)
+            % Y offset is pushed a bit inwards to avoid missing data along
+            % Y axis
+            res = evaluate(myInterpolant,x,(offsetY+0.01)*ones(size(x)),z);
+            res = reshape(res,size(x));
+            % NaNs dues to XZ plane overshoot are set to zero
+            res(find(isnan(res)))=0;
+            return
+        end
+        area = 2*offsetX*(maxZ-minZ);
+        avgTemp = integral2(@intFun,-offsetX,+offsetX,minZ,maxZ)/area;
+    end
+
+%% Solve for all geometries
+%%
+% Use parfeval to perform asynchronous computation and speed up overall
+% simulation time
+pool = gcp();
+%%
+% Futures are created for the geometries
+for idx = 1:size(T,1)
+    % coefficients of PDE
+    F(idx) = parfeval(pool,@solveGeometry,3,T.Model{idx},T.NumHoles(idx));
+end
+%%
+% Populate table with results of computations that are performed
+% asynchronously
+for idx = 1:size(T,1)
+    % get result for next geometry that was solved
+    [completedIdx,avgTemp,maxMinSpread] = fetchNext(F);
+    % Set the average temperature contribution of the variable part of the
+    % BC
+    T.AvgTempVariable(completedIdx) = avgTemp;
+    fprintf('%d of %d models simulated\n',completedIdx,size(T,1));
+    % compute scale factor for the contribution of the variable part. As
+    % mentioned earlier ambientTemp corresponds to contribution of the constant part.
+    T.InputForTargetTemp(completedIdx) = (targetTemp-ambientTemp)./T.AvgTempVariable(completedIdx);
+    T.MaxMinSpread(completedIdx) = maxMinSpread;
+end
+
+%% Report and visualize results
+%%
+% Calculate operating cost
+T.OperatingCost = T.InputForTargetTemp.*T.NumHoles;
+%%
+% Top-5 operating cost sorted from smallest to largest
+TOpCost = sortrows(T,'OperatingCost');
+TOpCost(1:5,:)
+%%
+% Plot result for geometry with lowest operating cost
+[~,~,resultVariableBC] = solveGeometry(TOpCost.Model{1},TOpCost.NumHoles(1));
+u_Optimal = resultVariableBC*TOpCost.InputForTargetTemp(1) + ambientTemp;
+figure
+pdeplot3D(TOpCost.Model{1},'colormapdata',u_Optimal);
+view(45,90);
+snapnow
+view(114,51);
+snapnow
+%%
+% Top-5 max-min spread sorted from smallest to largest
+TMaxMinSpread = sortrows(T,'MaxMinSpread');
+TMaxMinSpread(1:5,:)
+%%
+% Plot result for geometry with lowest max-min spread
+[~,~,resultVariableBC] = solveGeometry(TMaxMinSpread.Model{1},TMaxMinSpread.NumHoles(1));
+u_Optimal = resultVariableBC*TMaxMinSpread.InputForTargetTemp(1) + ambientTemp;
+figure
+pdeplot3D(TMaxMinSpread.Model{1},'colormapdata',u_Optimal);
+view(45,90);
+snapnow
+view(114,51);
+snapnow
+
+%% Takeaways
+%%
+% 
+% * Programmatically solve PDEs and perform parametric studies. Useful if
+% there is little fundamental variation between different design points.
+% * Perform custom post-processing with useful reports
+% * Use Parallel Computing Toolbox to accelerate simulations
+% 
+
+end
+##### SOURCE END #####
+--></body></html>

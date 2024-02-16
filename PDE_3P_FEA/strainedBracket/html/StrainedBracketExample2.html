@@ -1,0 +1,294 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Deflection Analysis of a Bracket</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-01-08"><meta name="DC.source" content="StrainedBracketExample2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">FV3TYEPWNNQC-1082-625</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">c7abff4e-0051-4d1e-95f8-565081e6e31c</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">http://sharepoint.mathworks.com/marketing/product/ltc/mso/pde/_layouts/15/DocIdRedir.aspx?ID=FV3TYEPWNNQC-1082-625, FV3TYEPWNNQC-1082-625</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head><body><div class="content"><h1>Deflection Analysis of a Bracket</h1><!--introduction--><p>This example shows how to analyze an idealized 3-D mechanical part under an applied loading using Finite Element Analysis (FEA). The objective of the analysis is to determine the maximum deflection caused by the load.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Create a PDE Model</a></li><li><a href="#2">Construct the Geometry</a></li><li><a href="#4">Define the Boundary Conditions</a></li><li><a href="#6">Examine the Elasticity Equations</a></li><li><a href="#7">Define the Coefficients in Toolbox Syntax</a></li><li><a href="#9">Create a Mesh</a></li><li><a href="#10">Calculate the Solution</a></li><li><a href="#11">Examine the Solution</a></li><li><a href="#12">Plot the Solution</a></li></ul></div><h2>Create a PDE Model<a name="1"></a></h2><p>The first step in solving any 3-D PDE problem is to create a PDE Model. This is a container that holds the number of equations, geometry, mesh, and boundary conditions for your PDE. The equations of linear elasticity have three components, so the number of equations in this model is three.</p><pre class="codeinput">N = 3;
+model = createpde(N);
+</pre><h2>Construct the Geometry<a name="2"></a></h2><p>Import an STL file of a simple bracket model using the <tt>importGeometry</tt> function. This function reconstructs the faces, edges and vertices of the model. It can merge some faces and edges, so the numbers can differ from those of the parent CAD model.</p><pre class="codeinput">importGeometry(model,<span class="string">'BracketWithHole.stl'</span>);
+</pre><p>Plot the geometry and turn on face labels. You will need the face labels to define the boundary conditions.</p><pre class="codeinput">figure
+pdegplot(model,<span class="string">'FaceLabels'</span>,<span class="string">'on'</span>);
+view(30,30);
+title(<span class="string">'Bracket with Face Labels'</span>)
+figure
+pdegplot(model,<span class="string">'FaceLabels'</span>,<span class="string">'on'</span>);
+view(-134,-32)
+title(<span class="string">'Bracket with Face Labels, Rear View'</span>)
+</pre><img vspace="5" hspace="5" src="StrainedBracketExample2_01.png" alt=""> <img vspace="5" hspace="5" src="StrainedBracketExample2_02.png" alt=""> <h2>Define the Boundary Conditions<a name="4"></a></h2><p>The problem has two boundary conditions: the back face is immobile and the front face has an applied load. All other boundary conditions, by default, are free Neumann boundaries.</p><p>Constrain all three displacements to <tt>0</tt> on the back face, face 3.</p><pre class="codeinput">applyBoundaryCondition(model,<span class="string">'Face'</span>,3,<span class="string">'u'</span>,[0,0,0]);
+</pre><p>Apply a distributed load in the negative <img src="StrainedBracketExample2_eq17119888974628994297.png" alt="$z$">-direction to the front face, face 6.</p><pre class="codeinput">distributedLoad = 1e4; <span class="comment">% Applied load in Pascals</span>
+applyBoundaryCondition(model,<span class="string">'Face'</span>,6,<span class="string">'g'</span>,[0,0,-distributedLoad]);
+</pre><h2>Examine the Elasticity Equations<a name="6"></a></h2><p>As explained in <a href="matlab:helpview(fullfile(docroot,'toolbox','pde','helptargets.map'),'pde_3Dlinear_elasticity');">3-D Linear Elasticity Equations in Toolbox Form</a>, you can express the elasticity equations for the deflection <img src="StrainedBracketExample2_eq11776305044305525613.png" alt="$u$"> of a linear isotropic solid as a three-component system</p><p><img src="StrainedBracketExample2_eq08076284660338051409.png" alt="$$-\nabla\cdot(c\otimes\nabla u) = f,$$"></p><p>where <img src="StrainedBracketExample2_eq00716558242686338507.png" alt="$f = [0;0;0]$"> when there are no body forces, and <img src="StrainedBracketExample2_eq08422257486649890878.png" alt="$c$"> is the symmetric matrix</p><p><img src="StrainedBracketExample2_eq04733561821008982717.png" alt="$$c = \left[ {\begin{array}{*{20}{c}}&#xA;{{c_1}}&amp;0&amp;0&amp;0&{{c_{12}}}&amp;0&amp;0&amp;0&{{c_{12}}}\\&#xA; \bullet &amp;G&amp;0&amp;G&amp;0&amp;0&amp;0&amp;0&amp;0\\&#xA; \bullet &amp; \bullet &amp;G&amp;0&amp;0&amp;0&amp;G&amp;0&amp;0\\&#xA; \bullet &amp; \bullet &amp; \bullet &amp;G&amp;0&amp;0&amp;0&amp;0&amp;0\\&#xA; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &{{c_1}}&amp;0&amp;0&amp;0&{{c_{12}}}\\&#xA; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &amp;G&amp;0&amp;G&amp;0\\&#xA; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &amp;G&amp;0&amp;0\\&#xA; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &amp;G&amp;0\\&#xA; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &amp; \bullet &{{c_1}}&#xA;\end{array}} \right].$$"></p><p>The <img src="StrainedBracketExample2_eq17397400512971602978.png" alt="$\bullet$"> symbol means the entry is symmetric. Here <img src="StrainedBracketExample2_eq12521845750295486340.png" alt="$E$"> is the elastic modulus, <img src="StrainedBracketExample2_eq16519649717996589748.png" alt="$\nu$"> is Poisson's ratio, and</p><div><ul><li><img src="StrainedBracketExample2_eq00177692574050418941.png" alt="$G = \frac{E}{2(1+\nu)}$"></li><li><img src="StrainedBracketExample2_eq08514373614605688233.png" alt="$c_1 = \frac{E(1-\nu)}{(1+\nu)(1-2\nu)}$"></li><li><img src="StrainedBracketExample2_eq06906614909327737868.png" alt="$c_{12} = c_1\frac{\nu}{1-\nu}$"></li></ul></div><p>You can create the <tt>c</tt> coefficient for a linear isotropic solid using the <tt>elasticityC3D</tt> function, which is included in your software (see <a href="matlab:helpview(fullfile(docroot,'toolbox','pde','helptargets.map'),'pde_3Dlinear_elasticity');">3-D Linear Elasticity Equations in Toolbox Form</a>).</p><h2>Define the Coefficients in Toolbox Syntax<a name="7"></a></h2><p>Define the elastic modulus of steel and Poisson's ratio for this material.</p><pre class="codeinput">E = 200e9; <span class="comment">% elastic modulus of steel in Pascals</span>
+nu = 0.3; <span class="comment">% Poisson's ratio</span>
+</pre><p>Incorporate these coefficients in toolbox syntax.</p><pre class="codeinput">c = elasticityC3D(E,nu);
+a = 0;
+f = [0;0;0]; <span class="comment">% Assume all body forces are zero</span>
+</pre><h2>Create a Mesh<a name="9"></a></h2><p>Create a mesh that uses 10-node tetrahedral elements with quadratic interpolation functions. This element type is significantly more accurate than the linear interpolation (four-node) elements, particularly in elasticity analyses that involve bending.</p><pre class="codeinput">bracketThickness = 1e-2; <span class="comment">% Thickness of horizontal plate with hole, meters</span>
+hmax = bracketThickness; <span class="comment">% Maximum element length for a moderately fine mesh</span>
+generateMesh(model,<span class="string">'Hmax'</span>,hmax,<span class="string">'GeometricOrder'</span>,<span class="string">'quadratic'</span>);
+figure
+pdeplot3D(model);
+title(<span class="string">'Mesh with Quadratic Tetrahedral Elements'</span>);
+</pre><img vspace="5" hspace="5" src="StrainedBracketExample2_03.png" alt=""> <h2>Calculate the Solution<a name="10"></a></h2><p>The problem coefficients do not depend on the solution <img src="StrainedBracketExample2_eq11776305044305525613.png" alt="$u$"> and do not depend on time. Therefore, use <tt>assempde</tt> to calculate the solution.</p><pre class="codeinput">u = assempde(model,c,a,f);
+</pre><h2>Examine the Solution<a name="11"></a></h2><p>Find the greatest calculated deflection of the bracket. To separate the three solution components, reshape the dimensions of the solution vector to an <tt>nNodes</tt>-by-3 matrix, where <tt>nNodes</tt> is the number of nodes.</p><pre class="codeinput">u3 = reshape(u,[],3);
+minUz = min(u3(:,3));
+fprintf(<span class="string">'Largest deflection in the z-direction is %g meters.\n'</span>, minUz);
+</pre><pre class="codeoutput">Largest deflection in the z-direction is -4.47911e-05 meters.
+</pre><h2>Plot the Solution<a name="12"></a></h2><p>To see the solution, plot the components of the solution vector. The maximum deflections are in the <img src="StrainedBracketExample2_eq17119888974628994297.png" alt="$z$">-direction. Because the part and the loading are symmetric, the <img src="StrainedBracketExample2_eq12428413953531653171.png" alt="$x$">-displacement and <img src="StrainedBracketExample2_eq17119888974628994297.png" alt="$z$">-displacement are symmetric and the <img src="StrainedBracketExample2_eq08830444604280721118.png" alt="$y$">-displacement is antisymmetric about the part centerline.</p><p>By default, the plotting routine uses the <tt>'jet'</tt> colormap, which has blue as the color representing the lowest value and red representing the highest value. The bracket loading causes face 6 to dip down, so the maximum <img src="StrainedBracketExample2_eq17119888974628994297.png" alt="$z$">-displacement appears blue.</p><pre class="codeinput"><span class="comment">% Add feature edges to improve contrast</span>
+<span class="comment">% Perform the query on a linear triangulation.</span>
+<span class="comment">% Suppress the warning about the unused quadratic nodes.</span>
+warning(<span class="string">'off'</span>,<span class="string">'MATLAB:triangulation:PtsNotInTriWarnId'</span>);
+[p,~,t] = model.Mesh.meshToPet();
+tr = triangulation(model.Mesh.Elements(1:4,:)',p');
+warning(<span class="string">'on'</span>,<span class="string">'MATLAB:triangulation:PtsNotInTriWarnId'</span>);
+[tri xf] = freeBoundary(tr);
+tr = triangulation(tri,xf);
+px = xf(:,1);
+py = xf(:,2);
+pz = xf(:,3);
+fe = tr.featureEdges(pi/3);
+fe = fe';
+
+
+
+labels = [<span class="string">'x'</span>,<span class="string">'y'</span>,<span class="string">'z'</span>];
+<span class="keyword">for</span> i=1:3
+  figure
+  pdeplot3D(model,<span class="string">'colormapdata'</span>,abs(u3(:,i)));
+  title([labels(i),<span class="string">'-displacement'</span>]);
+  hold <span class="string">on</span>
+  plot3(px(fe), py(fe), pz(fe), <span class="string">'-k'</span>);
+  hold <span class="string">off</span>
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="StrainedBracketExample2_04.png" alt=""> <img vspace="5" hspace="5" src="StrainedBracketExample2_05.png" alt=""> <img vspace="5" hspace="5" src="StrainedBracketExample2_06.png" alt=""> <p class="footer">Copyright 2014 The MathWorks, Inc.<br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Deflection Analysis of a Bracket
+% This example shows how to analyze an idealized 3-D mechanical part under
+% an applied loading using Finite Element Analysis (FEA). The objective of
+% the analysis is to determine the maximum deflection caused by the load.
+
+% Copyright 2014 The MathWorks, Inc.
+
+%% Create a PDE Model
+% The first step in solving any 3-D PDE problem is to create a PDE Model.
+% This is a container that holds the number of equations, geometry, mesh,
+% and boundary conditions for your PDE. The equations of linear elasticity
+% have three components, so the number of equations in this model is three.
+N = 3;
+model = createpde(N);
+%% Construct the Geometry
+% Import an STL file of a simple bracket model using the |importGeometry|
+% function. This function reconstructs the faces, edges and vertices of the
+% model. It can merge some faces and edges, so the numbers can differ from
+% those of the parent CAD model.
+importGeometry(model,'BracketWithHole.stl');
+
+%%
+% Plot the geometry and turn on face labels. You will need the face
+% labels to define the boundary conditions.
+figure
+pdegplot(model,'FaceLabels','on');
+view(30,30);
+title('Bracket with Face Labels')
+figure
+pdegplot(model,'FaceLabels','on');
+view(-134,-32)
+title('Bracket with Face Labels, Rear View')
+
+%% Define the Boundary Conditions
+% The problem has two boundary conditions: the back face is immobile and
+% the front face has an applied load. All other boundary conditions, by
+% default, are free Neumann boundaries.
+%
+% Constrain all three displacements to |0| on the back face, face 3.
+applyBoundaryCondition(model,'Face',3,'u',[0,0,0]);
+%%
+% Apply a distributed load in the negative $z$-direction to the front face,
+% face 6.
+distributedLoad = 1e4; % Applied load in Pascals
+applyBoundaryCondition(model,'Face',6,'g',[0,0,-distributedLoad]);
+
+%% Examine the Elasticity Equations
+% As explained in
+% <matlab:helpview(fullfile(docroot,'toolbox','pde','helptargets.map'),'pde_3Dlinear_elasticity');
+% 3-D Linear Elasticity Equations in Toolbox Form>, you can express the
+% elasticity equations for the deflection $u$ of a linear isotropic solid
+% as a three-component system
+%
+% $$-\nabla\cdot(c\otimes\nabla u) = f,$$
+%
+% where $f = [0;0;0]$ when there are no body forces, and $c$ is the
+% symmetric matrix
+%
+% $$c = \left[ {\begin{array}{*{20}{c}}
+% {{c_1}}&0&0&0&{{c_{12}}}&0&0&0&{{c_{12}}}\\
+%  \bullet &G&0&G&0&0&0&0&0\\
+%  \bullet & \bullet &G&0&0&0&G&0&0\\
+%  \bullet & \bullet & \bullet &G&0&0&0&0&0\\
+%  \bullet & \bullet & \bullet & \bullet &{{c_1}}&0&0&0&{{c_{12}}}\\
+%  \bullet & \bullet & \bullet & \bullet & \bullet &G&0&G&0\\
+%  \bullet & \bullet & \bullet & \bullet & \bullet & \bullet &G&0&0\\
+%  \bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \bullet &G&0\\
+%  \bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \bullet &{{c_1}}
+% \end{array}} \right].$$
+%
+% The $\bullet$ symbol means the entry is symmetric. Here $E$ is the elastic
+% modulus, $\nu$ is Poisson's ratio, and
+%
+% * $G = \frac{E}{2(1+\nu)}$
+% * $c_1 = \frac{E(1-\nu)}{(1+\nu)(1-2\nu)}$
+% * $c_{12} = c_1\frac{\nu}{1-\nu}$
+%
+% You can create the |c| coefficient for a linear isotropic solid using the
+% |elasticityC3D| function, which is included in your software (see
+% <matlab:helpview(fullfile(docroot,'toolbox','pde','helptargets.map'),'pde_3Dlinear_elasticity');
+% 3-D Linear Elasticity Equations in Toolbox Form>).
+
+%% Define the Coefficients in Toolbox Syntax
+% Define the elastic modulus of steel and Poisson's ratio for this material.
+E = 200e9; % elastic modulus of steel in Pascals
+nu = 0.3; % Poisson's ratio
+%%
+% Incorporate these coefficients in toolbox syntax.
+c = elasticityC3D(E,nu);
+a = 0;
+f = [0;0;0]; % Assume all body forces are zero
+
+%% Create a Mesh
+% Create a mesh that uses 10-node tetrahedral elements with quadratic
+% interpolation functions. This element type is significantly more accurate
+% than the linear interpolation (four-node) elements, particularly in
+% elasticity analyses that involve bending.
+bracketThickness = 1e-2; % Thickness of horizontal plate with hole, meters
+hmax = bracketThickness; % Maximum element length for a moderately fine mesh
+generateMesh(model,'Hmax',hmax,'GeometricOrder','quadratic');
+figure
+pdeplot3D(model);
+title('Mesh with Quadratic Tetrahedral Elements');
+
+%% Calculate the Solution
+% The problem coefficients do not depend on the solution $u$ and do not
+% depend on time. Therefore, use |assempde| to calculate the solution.
+u = assempde(model,c,a,f);
+
+%% Examine the Solution
+% Find the greatest calculated deflection of the bracket. To separate the
+% three solution components, reshape the dimensions of the solution vector
+% to an |nNodes|-by-3 matrix, where |nNodes| is the number of nodes.
+u3 = reshape(u,[],3);
+minUz = min(u3(:,3));
+fprintf('Largest deflection in the z-direction is %g meters.\n', minUz);
+
+%% Plot the Solution
+% To see the solution, plot the components of the solution vector. The
+% maximum deflections are in the $z$-direction. Because the part and the
+% loading are symmetric, the $x$-displacement and $z$-displacement are
+% symmetric and the $y$-displacement is antisymmetric about the part
+% centerline.
+%
+% By default, the plotting routine uses the |'jet'| colormap, which has
+% blue as the color representing the lowest value and red representing the
+% highest value. The bracket loading causes face 6 to dip down, so the
+% maximum $z$-displacement appears blue.
+
+% Add feature edges to improve contrast
+% Perform the query on a linear triangulation.
+% Suppress the warning about the unused quadratic nodes. 
+warning('off','MATLAB:triangulation:PtsNotInTriWarnId');
+[p,~,t] = model.Mesh.meshToPet();
+tr = triangulation(model.Mesh.Elements(1:4,:)',p');
+warning('on','MATLAB:triangulation:PtsNotInTriWarnId');
+[tri xf] = freeBoundary(tr);
+tr = triangulation(tri,xf);
+px = xf(:,1);
+py = xf(:,2);
+pz = xf(:,3);
+fe = tr.featureEdges(pi/3);
+fe = fe';
+
+
+
+labels = ['x','y','z'];
+for i=1:3
+  figure
+  pdeplot3D(model,'colormapdata',abs(u3(:,i)));
+  title([labels(i),'-displacement']);
+  hold on
+  plot3(px(fe), py(fe), pz(fe), '-k');
+  hold off  
+end
+
+displayEndOfDemoMessage(mfilename)
+
+##### SOURCE END #####
+--></body></html>
