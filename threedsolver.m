@@ -1,6 +1,19 @@
+%% Function parameters:
+% p: coordinate matrix for the nodes. dim(3, nof_nodes)
+% t: matrix defining the 'triangulation'. Each column gives the 4 node
+%    indices in p, which define the tetrahedra of the 'triangulation'.
+%    dim(4, nof_tetrahedra)
+% f: source function for Poisson's eq given as a function handle
+% K: material coefficient or geometry matrix: default K = I
+% idof: indices of internal nodes
+% wb: function handle satisfying the wanted dirichlet boundary condition on
+%   the boundary. Default is that on the boundary the solution goes to zero
+% dwb: derivative of wb.
 function u = threedsolver(p,t,f, K, idof, wb, dwb)
 
-% new
+% This part is used for initial handling for the solver in the case
+% non-zero Dirichlet boundary conditions are given as a parameter for the
+% function
 w_p = zeros(size(p,2), 1);
 if(nargin > 5)
     for i = 1:size(p,2)
@@ -11,16 +24,10 @@ else
     dwb{2} = @(x) 0*x(1)*x(2)*x(3);
     dwb{3} = @(x) 0*x(1)*x(2)*x(3);
 end
-%
+% initial handling for boundary conditions ends here
 
 %THREEDSOLVER Summary of this function goes here
-%   Detailed explanation goes here
 
-% assumptions: p has three and t has four rows, ie. we use linear elements.
-% f is the source function in the Poisson equation.
-% K is the geometry matrix.
-% idof gives the indices of the interior nodes in the mesh and is of size
-% (1,size(p,2))
 n_vertices = size(p,2);
 Ahat = sparse(n_vertices,n_vertices);
 bhat = zeros(n_vertices,1);
@@ -60,7 +67,11 @@ for i = 1:size(t,2)
 
             bhat(sigma(l)) = bhat(sigma(l))+...
                 abs(det(M))*w(k)*(f(ef(ti(:,k)))*phi(l,k));
-            % new
+            % new addition: We solve the Poisson's equation with zero
+            % Dirichlet boundary conditions for the transformed problem
+            % u_0 = u-w. After finding this solution we add w back to the
+            % solution to get the final solution satisfying the arbtiraty
+            % Dirichlet boundary condition. That is u = u0+w.
             dwb_Fx = [dwb{1}(ef(ti(:,k))); dwb{2}(ef(ti(:,k))); dwb{3}(ef(ti(:,k)))];
             bhat(sigma(l)) = bhat(sigma(l)) -...
                 abs(det(M))*w(k)*(dwb_Fx'*(M'\dphi(:,l)));
@@ -72,6 +83,7 @@ ndof = n_vertices;
 A = Ahat(idof,idof) ; b = bhat(idof);
 u = zeros(ndof,1);
 u(idof) = A\b;
-% new
+% new addition: here we solve u = u0+w so that u satisfies the possibly
+% non-zero boundary conditions
 u = u + w_p;
 %
