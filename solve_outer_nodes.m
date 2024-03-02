@@ -1,8 +1,17 @@
+%% Solves the nodes on the edge of the 'triangulation'
+% parameters:
+% t: matrix defining the 'triangulation'.
+
 function outer_nodes = solve_outer_nodes(t)
 
     n = size(t,2);
     faces = zeros(3, 4*n);
 
+    % faceCounts is a Hashmap, mapping each face included in some
+    % tetrahedra to the amount of tetrahedras that the face is associated
+    % with. We find the faces on the outer edge of the 'triangulation'
+    % through finding the faces, which are associated only with one
+    % tetrahedron. We get the nodes on the edge from these faces.
     faceCounts = containers.Map('KeyType','int64','ValueType','int64');
     keys = zeros(3,size(faces,2));
 
@@ -17,6 +26,9 @@ function outer_nodes = solve_outer_nodes(t)
 
         for j = 1:4
             face = sort(faces(:,4*i + j));
+            % we get 'key' for the hashmap for each face by giving the 3
+            % node indices in a SORTED order for the hashCode function
+            % Note that the hashCode is not perfect. 
             key = hashCode(face);
             keys(:, 4*i + j) = face;
             if(isKey(faceCounts, key)) 
@@ -40,7 +52,7 @@ function outer_nodes = solve_outer_nodes(t)
     
 end
 
-%% 
+%% simple function for producing hash keys for each face of a tetrahedra
 function h = hashCode(a)
 
     if(length(a) ~= 3)
