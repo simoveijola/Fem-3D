@@ -36,4 +36,4 @@ result = assempde(myPde,c,a,f);
 
 %% Visualize
 figure
-pdeplot3D(myPde,'colormapdata',result);
+pdeplot3D(myPde,'colormapdata',result, 'FaceAlpha', 0.25);

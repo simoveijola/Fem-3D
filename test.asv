@@ -1,0 +1,31 @@
+%% how to import geometry and initialize mesh:
+model = createpde;
+importGeometry(model, "3D_model_of_a_Cube.stl");
+generateMesh(model, "GeometricOrder","linear")
+
+p = model.Mesh.Nodes; t = model.Mesh.Elements;
+% from the mesh we get the nodes and the connectivity matrix.
+pdeplot3D(model,'NodeLabels','off', 'FaceAlpha',0.3);
+
+%% how to plot:
+pdeplot3D(model.Mesh, ColorMapData=ones(size(p,2),1))
+
+%% cube:
+scatter3(p(1,:),p(2,:),p(3,:))
+idof = min(p,[],1)==0 | max(p,[],1)==30;
+sum(idof)
+extnodes = p(:,idof);
+scatter3(extnodes(1,:),extnodes(2,:),extnodes(3,:))
+
+%%
+outer_nodes = solve_outer_nodes(t);
+%%
+
+scatter3(p(1,outer_nodes),p(2,outer_nodes),p(3,outer_nodes))
+%%
+f = @(x) 30*(max(3-   sqrt(x(1)^2-x(2)^2-x(3)^2), 0));
+idof = setdiff(t, outer_nodes);
+uh = threedsolver(p,t,f,[1,0,0;0,1,0;0,0,1], idof);
+
+%%
+plot3D_solution(p,t,uh)
